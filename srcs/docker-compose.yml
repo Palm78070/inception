@@ -10,8 +10,9 @@ volumes:
       type: none
 
 services:
+  mariadb:
   container_name: mariadb
-  build: ./requirements/mariadb/
+  build: ./requirements/mariadb/.
   volumes:
     - mariadb:/var/lib/mysql
   env_file:

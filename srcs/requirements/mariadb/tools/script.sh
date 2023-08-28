@@ -20,20 +20,19 @@ chmod -R 755 /var/run/mysqld/
 
 sleep 5
 # Check if the database already exists -> if no database throw message error(fd 2) to /dev/null
-#if mysql -uroot -pP@lm78070 -e "USE WordpressDB;" 2>/dev/null; then
-if [ -d "/var/lib/mysql/WordpressDB" ]; then
+if [ -d "/var/lib/mysql/$MYSQL_DB_NAME" ]; then
 	echo "Database already exists"
 else
-	echo "CREATE DATABASE IF NOT EXISTS WordpressDB ;" > db.sql
-	echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'P@lm78070' ;" >> db.sql
-	echo "CREATE USER IF NOT EXISTS 'Palm'@'%' IDENTIFIED BY '1234' ;" >> db.sql
-	echo "GRANT ALL PRIVILEGES ON WordpressDB.* TO 'Palm'@'%' ;" >> db.sql
+	echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DB_NAME ;" > db.sql
+	echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' ;" >> db.sql
+	echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;" >> db.sql
+	echo "GRANT ALL PRIVILEGES ON $MYSQL_DB_NAME.* TO '$MYSQL_USER'@'%' ;" >> db.sql
 	echo "FLUSH PRIVILEGES;" >> db.sql
 
-	mysql -uroot -pP@lm78070 < db.sql
+	mysql -uroot -p$MYSQL_ROOT_PASSWORD < db.sql
 
 	#Stop mysql server
-	mysqladmin -uroot -pP@lm78070 shutdown
+	mysqladmin -uroot -p$MYSQL_ROOT_PASSWORD shutdown
 
 	#Wait for mysql server to stop
 	while ps aux | grep -v grep | grep mysqld; do
