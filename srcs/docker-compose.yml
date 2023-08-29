@@ -11,10 +11,11 @@ volumes:
 
 services:
   mariadb:
-  container_name: mariadb
-  build: ./requirements/mariadb/.
-  volumes:
-    - mariadb:/var/lib/mysql
-  env_file:
-    - .env
-  restart: always
+    container_name: mariadb
+    build: ./requirements/mariadb/.
+    image: mariadb_image
+    volumes:
+      - mariadb:/var/lib/mysql
+    env_file:
+      - .env
+    restart: always
