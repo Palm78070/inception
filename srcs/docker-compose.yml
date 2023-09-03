@@ -12,10 +12,18 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
-    build: ./requirements/mariadb/.
+    build:
+      context: ./requirements/mariadb/.
+      args:
+        - MYSQL_DB_NAME=${MYSQL_DB_NAME}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     image: mariadb_image
     volumes:
       - mariadb:/var/lib/mysql
     env_file:
       - .env
+    ports:
+      - 3306:3306
     restart: always

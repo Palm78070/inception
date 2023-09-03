@@ -34,6 +34,9 @@ else
 	done
 fi
 
+#mysqld_safe --user=mysql --console --skip-name-resolve --skip-networking=0
+#exec "$@"
+
 ######################################################################
 
 #/etc/init.d/mysql start
