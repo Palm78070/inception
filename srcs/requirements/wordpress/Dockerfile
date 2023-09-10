@@ -3,13 +3,13 @@ FROM debian:buster
 #curl package: command-line tool to transfer data using various network protocol HTTP, HTTPS, FTP
 RUN apt-get -y update && apt-get -y upgrade \
 	&& apt update -y && apt upgrade -y \
-	&& apt install php-fpm php-mysql -y && apt install curl -y
+	&& apt install php-fpm php-mysql -y && apt install curl -y \
+	&& apt install vim -y
 
 COPY ./tools/script.sh /
-COPY ./conf/wp-config.php /
+#COPY ./conf/wp-config.php /
+#WORKDIR /var/www/html/
 
-#RUN chomd 775 script.sh
-
-#EXPOSE 9000
+EXPOSE 9000
 
 ENTRYPOINT ["/script.sh"]

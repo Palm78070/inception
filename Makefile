@@ -10,19 +10,30 @@
 #                                                                              #
 # **************************************************************************** #
 
+build:
+	cd srcs && docker-compose build && cd ../
+
+# up => create + start containers defined in compose file
 up:
-	docker compose -f up srcs/docker-compose.yml
+	cd srcs && docker-compose up -d && cd ../
 
 down:
-	docker compose -f down srcs/docker-compose.yml
+	cd srcs && docker-compose down && cd ../
 
+# start => start containers that currently stop
 start:
-	docker compose -f start srcs/docker-compose.yml
+	cd srcs && docker-compose start && cd ../
 
 stop:
-	docker compose -f stop srcs/docker-compose.yml
+	cd srcs && docker-compose stop && cd ../
 
 status:
 	docker ps
 
-.PHONY: up down start stop status
+logs:
+	cd srcs && docker-compose logs && cd ../
+
+rm_images:
+	docker images -q | xargs -r docker rmi -f
+
+.PHONY: build up down start stop status rm_images
