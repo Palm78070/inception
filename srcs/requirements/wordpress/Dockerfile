@@ -8,8 +8,6 @@ RUN apt-get -y update && apt-get -y upgrade \
 	&& apt install mariadb-client -y
 
 COPY ./tools/script.sh /
-#COPY ./conf/wp-config.php /
-#WORKDIR /var/www/html/
 
 EXPOSE 9000
 
