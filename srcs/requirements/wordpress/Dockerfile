@@ -4,7 +4,8 @@ FROM debian:buster
 RUN apt-get -y update && apt-get -y upgrade \
 	&& apt update -y && apt upgrade -y \
 	&& apt install php-fpm php-mysql -y && apt install curl -y \
-	&& apt install vim -y
+	&& apt install vim -y \
+	&& apt install mariadb-client -y
 
 COPY ./tools/script.sh /
 #COPY ./conf/wp-config.php /

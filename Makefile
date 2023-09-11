@@ -10,6 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
+C1:= wordpress
+
+C2:= mariadb
+
 build:
 	cd srcs && docker-compose build && cd ../
 
@@ -27,13 +31,25 @@ start:
 stop:
 	cd srcs && docker-compose stop && cd ../
 
-status:
+ps:
 	docker ps
 
 logs:
 	cd srcs && docker-compose logs && cd ../
 
+images:
+	docker images
+
 rm_images:
 	docker images -q | xargs -r docker rmi -f
 
-.PHONY: build up down start stop status rm_images
+ping:
+	docker exec $(C1) ping $(C2) -c2
+
+network:
+	docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' inception
+
+wp_usr:
+	docker exec -it wordpress wp --allow-root --path=var/www/html user list
+
+.PHONY: build up down start stop ps images rm_images ping network wp_usr
