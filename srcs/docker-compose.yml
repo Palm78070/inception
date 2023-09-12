@@ -63,6 +63,8 @@ services:
     image: nginx_image
     depends_on:
       - wordpress
+    volumes:
+      - wordpress:/var/www/html
     env_file:
       - .env
     networks:

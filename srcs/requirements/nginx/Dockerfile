@@ -9,11 +9,12 @@ FROM debian:buster
 # -keyout specifies file where private key should be stored -out specifies file cert should be stored
 # -subj specifies subject of cert C=country L=location O=organization OU=organization unit CN=common name
 RUN apt-get -y update && apt-get -y upgrade \
-	&& apt update -y && apt upgrade -y
+	&& apt update -y && apt upgrade -y \
+	&& apt install -y nginx openssl
 
-RUN apt install -y nginx
+#RUN apt install -y nginx
 
-RUN apt install -y openssl
+#RUN apt install -y openssl
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -subj "/C=TH/L=BKK/O=42/OU=cardet/CN=rthammat.42.fr"
 
