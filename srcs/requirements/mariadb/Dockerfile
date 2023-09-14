@@ -5,6 +5,7 @@ ARG MYSQL_ROOT_PASSWORD
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
 
+#-y to automatically answer "yes" to prompts that require user confirmation during package installation or upgrade
 RUN apt-get update -y && apt-get install -y \
 	mariadb-server \
 	mariadb-client \
